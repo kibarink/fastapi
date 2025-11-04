@@ -24,9 +24,12 @@ import asyncio
 
 @app.on_event("startup")
 async def startup_event():
+    import traceback
     try:
         db.command("ping")
-        print("✅ Atlas接続OK（Render起動時に確認）")
+        print("✅ Atlas接続OK（Render起動時）")
     except Exception as e:
-        print("❌ Atlas接続エラー:", e)
+        print("❌ Atlas接続エラー:")
+        traceback.print_exc()
+
 
