@@ -28,19 +28,15 @@ async def startup_event():
     try:
         db.command("ping")
         print("✅ Atlas接続OK（Render起動時）")
+
+        # DHA_Wellsの先頭2件をログに出力
+        docs = list(db["DHA_Wells"].find({}, {"_id": 0}).limit(2))
+        print("📘 DHA_Wells サンプル:", docs)
+
     except Exception as e:
         print("❌ Atlas接続エラー:")
         traceback.print_exc()
 
-from fastapi.responses import JSONResponse
-
-@app.get("/find")
-def find_documents(limit: int = 5):
-    try:
-        docs = list(db["DHA_Wells"].find({}, {"_id": 0}).limit(limit))
-        return JSONResponse(content={"count": len(docs), "documents": docs})
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"error": str(e)})
 
 
 
