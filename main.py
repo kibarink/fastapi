@@ -19,3 +19,14 @@ def ping():
         return {"status": "ok", "message": "Connected to Atlas"}
     except Exception as e:
         return {"status": "error", "detail": str(e)}
+
+import asyncio
+
+@app.on_event("startup")
+async def startup_event():
+    try:
+        db.command("ping")
+        print("✅ Atlas接続OK（Render起動時に確認）")
+    except Exception as e:
+        print("❌ Atlas接続エラー:", e)
+
