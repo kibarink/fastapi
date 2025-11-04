@@ -76,7 +76,12 @@ def generate_icon(well_name: str):
         <circle cx="128" cy="128" r="120" fill="none" stroke="{ring_color}" stroke-width="16"/>
     </svg>
     '''
+    print(f"[ICON_GENERATED] {well_name} → Result={result}")
+    print(svg)
+    print("-" * 80)
+
     return Response(content=svg, media_type="image/svg+xml")
+
 
 
 
